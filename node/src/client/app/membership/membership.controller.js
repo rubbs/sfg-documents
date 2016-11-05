@@ -1,3 +1,24 @@
 /**
  * Created by ruben on 31.10.16.
  */
+(function() {
+  'use strict';
+
+  angular
+    .module('app.membership')
+    .controller('MembershipController', MembershipController);
+
+  MembershipController.$inject = ['apiservice', 'logger'];
+  /* @ngInject */
+  function MembershipController(dataservice, logger) {
+    var vm = this;
+
+    activate();
+
+    ////////////////////
+
+    function activate() {
+    }
+
+  }
+})();

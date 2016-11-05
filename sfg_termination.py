@@ -2,10 +2,13 @@
 import cStringIO
 from reportlab.pdfgen import canvas
 
-def create_termination():
+
+
+
+def create_termination(name):
     output = cStringIO.StringIO()
     p = canvas.Canvas(output)
-    p.drawString(100, 100, 'Hello')
+    p.drawString(100, 100, name)
     p.showPage()
     p.save()
 

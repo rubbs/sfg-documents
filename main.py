@@ -2,23 +2,24 @@
 import logging
 
 from flask import Flask, send_file, send_from_directory, make_response
+from flask_cors import CORS, cross_origin
 
 import sfg_termination
 
 app = Flask(__name__)
 
-@app.route('/api/document/termination', methods=['GET'])
-def create_termination():
-#    name = request.form['name']
-#    email = request.form['email']
-#    site = request.form['site_url']
-#    comments = request.form['comments']
+# enable cors (dev only!!)
+CORS(app)
 
-    pdf = sfg_termination.create_termination()
+@app.route('/api/document/termination', methods=['POST'])
+def ct():
+
+    pdf = sfg_termination.create_termination(request.data)
 
     response = make_response(pdf)
-    response.headers['Content-Disposition'] = "attachment; filename='sakulaci.pdf"
-    response.mimetype = 'application/pdf'
+    #response.headers['Content-Disposition'] = "attachment; filename='sakulaci.pdf"
+    response.headers['Content-Disposition'] = 'inline; filename=%s.pdf' % 'yourfilename'
+    response.mimetype = 'text/html'
     return response
 
 @app.route('/')
