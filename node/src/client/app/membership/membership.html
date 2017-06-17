@@ -1,22 +1,22 @@
 <section id="dashboard-view" class="mainbar">
   <section class="matter">
     <div class="container">
-      
+
       <div class="row">
-        <div class="col-md-6">
-          
-        </div>
+
         <div class="col-md-6">
           <div class="widget wgreen">
             <div ht-widget-header title="Termination" allow-collapse="true"></div>
             <div class="widget-content text-center text-info">
-              <small>Create new Termination</small>
-              <sfg-termination></sfg-termination>
+              <sfg-termination on-creation="vm.onTermination(termination)"></sfg-termination>
             </div>
             <div class="widget-foot">
               <div class="clearfix"></div>
             </div>
           </div>
+        </div>
+        <div class="col-md-6">
+          <object data="{{vm.result}}" type="application/pdf" style="width: 100%; height: 1200px;"></object>
         </div>
       </div>
     </div>

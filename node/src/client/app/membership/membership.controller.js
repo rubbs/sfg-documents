@@ -13,11 +13,19 @@
   function MembershipController(dataservice, logger) {
     var vm = this;
 
+    vm.onTermination = onTermination;
+
     activate();
 
     ////////////////////
 
     function activate() {
+      logger.info('test');
+    }
+
+    function onTermination(termination){
+      logger.info('new termination', termination);
+      vm.result = termination;
     }
 
   }

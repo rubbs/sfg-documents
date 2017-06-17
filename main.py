@@ -1,11 +1,17 @@
 # [START app]
 import logging
 
-from flask import Flask, send_file, send_from_directory, make_response
+from flask import Flask, send_file, send_from_directory, make_response, request
 from flask_cors import CORS, cross_origin
 
-import sfg_termination
+from sfg_termination import SfgTermination
 
+## logging setup
+
+logger = logging.getLogger('sfg')
+logger.setLevel(logging.DEBUG)
+
+## Flask setup
 app = Flask(__name__)
 
 # enable cors (dev only!!)
@@ -14,7 +20,10 @@ CORS(app)
 @app.route('/api/document/termination', methods=['POST'])
 def ct():
 
-    pdf = sfg_termination.create_termination(request.data)
+    logger.info('creating termination with data %s', request.get_json())
+
+    term = SfgTermination()
+    pdf = term.create_termination(request.get_json())
 
     response = make_response(pdf)
     #response.headers['Content-Disposition'] = "attachment; filename='sakulaci.pdf"

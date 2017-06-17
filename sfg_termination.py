@@ -1,18 +1,13 @@
+import logging
+from sfg_letter import SfgLetter
 
-import cStringIO
-from reportlab.pdfgen import canvas
+logger = logging.getLogger('sfg')
+
+class SfgTermination(object):
 
 
+    def create_termination(self, data):
+        logger.info('create_termination')
+        term = SfgLetter();
 
-
-def create_termination(name):
-    output = cStringIO.StringIO()
-    p = canvas.Canvas(output)
-    p.drawString(100, 100, name)
-    p.showPage()
-    p.save()
-
-    pdf_out = output.getvalue()
-    output.close()
-
-    return pdf_out
+        return term.get_pdf();

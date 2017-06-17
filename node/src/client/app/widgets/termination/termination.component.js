@@ -4,7 +4,10 @@
 
 	module.component('sfgTermination', {
 		templateUrl:'app/widgets/termination/termination.html',
-		controller: TerminationController
+		controller: TerminationController,
+    bindings: {
+      onCreation: '&'
+    }
 	});
 
 	TerminationController.$inject = ['$sce', 'apiservice']
@@ -14,6 +17,15 @@
 
 		vm.createTermination = createTermination;
 
+    vm.term = {};
+
+    vm.term = {
+      firstname: 'Fred',
+      surname: 'Feuerstein',
+      street: 'Steinbruch 1',
+      city: '12345 Steinhausen'
+    };
+
 		//////////////
 
 
@@ -21,21 +33,19 @@
 
 			console.log('create termination');
 
-			var term = {
-				firstname: 'Fred',
-				surname: 'Feuerstein'
-			}
 
-			apiservice.termination.save(term, 
+
+			apiservice.termination.save(vm.term,
 				function(response){
-				console.log('got termination', (response));
 
 				var file = new Blob([response.data], {type: 'application/pdf'});
 
-       			var fileURL = URL.createObjectURL(file);
-       			console.log('got termination', (response), file, fileURL);
+       		var fileURL = URL.createObjectURL(file);
+          console.log('callback', vm.onCreation);
 
-       			vm.content = $sce.trustAsResourceUrl(fileURL);
+          var result = $sce.trustAsResourceUrl(fileURL);
+          vm.onCreation({termination: result});
+          //vm.term = {};
 			});
 
 		}
